@@ -307,5 +307,57 @@ public class SessionCookieTest {
         // after removing, value should not be there anymore:
         assertNull(sessionCookie.get(key));
     }
+    
+    @Test
+    public void testSessionCookieSubDomainSettingNotSetByDefault() {
+
+        when(
+                ninjaProperties.get(
+                        NinjaConstant.applicationCookieDomain)).thenReturn(null);
+
+        SessionCookie sessionCookie = new SessionCookieImpl(crypto,
+                ninjaProperties);
+
+        sessionCookie.init(context);
+
+        sessionCookie.put("hello", "session!");
+
+        // put nothing => intentionally to check if no session cookie will be
+        // saved
+        sessionCookie.save(context, result);
+
+        // a cookie will be set
+        verify(result).addCookie(cookieCaptor.capture());
+
+        // verify some stuff on the set cookie
+        assertEquals(null, cookieCaptor.getValue().getDomain());
+        
+    }
+    
+    @Test
+    public void testSessionCookieSubDomainSettingWorks() {
+
+        when(
+                ninjaProperties.get(
+                        NinjaConstant.applicationCookieDomain)).thenReturn(".mydomain.com");
+
+        SessionCookie sessionCookie = new SessionCookieImpl(crypto,
+                ninjaProperties);
+
+        sessionCookie.init(context);
+
+        sessionCookie.put("hello", "session!");
+
+        // put nothing => intentionally to check if no session cookie will be
+        // saved
+        sessionCookie.save(context, result);
+
+        // a cookie will be set
+        verify(result).addCookie(cookieCaptor.capture());
+
+        // verify some stuff on the set cookie
+        assertEquals(".mydomain.com", cookieCaptor.getValue().getDomain());
+        
+    }
 
 }

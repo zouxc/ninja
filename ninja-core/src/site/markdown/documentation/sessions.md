@@ -1,8 +1,8 @@
-Security Guide
-==============
+Sessions
+========
 
-Sessions Intro
---------------
+Intro
+-----
 
 A session is a package of information that always maps to one particular user of your application. 
 It is persistent over many connects. For instance - A user logs into your application today 

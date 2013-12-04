@@ -35,9 +35,10 @@
                 <item name="Injection" href="./documentation/injection.html"/>
                 <item name="Html templating" href="./documentation/html_templating.html"/>
                 <item name="Static assets" href="./documentation/static_assets.html"/>
+                <item name="Sessions" href="./documentation/sessions.html"/> 
                 <item name="Request scope" href="./documentation/request_scope.html"/> 
                 <item name="Internationalization" href="./documentation/internationalization.html"/>
-                <item name="Filter" href="./documentation/filter.html"/>            
+                <item name="Filter" href="./documentation/filter.html"/>
                 <item name="Configuration" href="./documentation/application_configuration.html"/>
                 <item name="JPA / DB" href="./documentation/jpa.html"/>
                 <item name="DB Migrations" href="./documentation/db_migrations.html"/>
@@ -45,7 +46,6 @@
                 <item name="Lifecycle" href="./documentation/lifecycle.html"/>
                 <item name="Scheduler" href="./documentation/scheduler.html"/>
                 <item name="Testing" href="./documentation/testing.html"/>
-                <item name="Security Guide" href="./documentation/security_guide.html"/> 
                 <item name="SuperDevMode" href="./documentation/super_dev_mode.html"/>
                 <item name="Debugging" href="./documentation/debugging.html"/>
                 <item name="Validation" href="./documentation/validation.html"/>

@@ -226,7 +226,7 @@ public class SessionCookieImpl implements SessionCookie {
                     + NinjaConstant.SESSION_SUFFIX, sign + "-" + sessionData);
             cookie.setPath("/");
 
-            if(applicationCookieDomain != null){
+            if(applicationCookieDomain != null) {
                 cookie.setDomain(applicationCookieDomain);
             }
 
