@@ -23,6 +23,55 @@ By the way - Ninja did not invent the concept of client side sessions - The prai
 More on sessions: (http://en.wikipedia.org/wiki/Session_(computer_science))
 
 
+Configure your session
+----------------------
+
+ You can configure your session via 
+    /**
+     * Prefix used for all Ninja cookies.
+     * 
+     * Make sure you set the prefix in your application.conf file.
+     * 
+     * */
+    final String applicationCookiePrefix = "application.cookie.prefix";
+
+    /**
+     * Enables session/cookie sharing between subdomains. For example, to make cookies valid for
+     * all domains ending with ‘.example.com’, e.g. foo.example.com and bar.example.com:
+     */
+    final String applicationCookieDomain = "application.cookie.domain";
+
+    /** Used to verify client side cookie for instance. */
+    final String applicationSecret = "application.secret";
+
+    /**
+     * Time until session expires.
+     */
+    final String sessionExpireTimeInSeconds = "application.session.expire_time_in_seconds";
+
+    /**
+     * Send session cookie only back when content has changed.
+     */
+    final String sessionSendOnlyIfChanged = "application.session.send_only_if_changed";
+
+
+    /**
+     * Used to set the Secure flag if the cookie. Means Session will only be
+     * transferrd over Https.
+     */
+    final String sessionTransferredOverHttpsOnly = "application.session.transferred_over_https_only";
+
+
+    /**
+     * Used to set the HttpOnly flag at the session cookie. On a supported
+     * browser, an HttpOnly session cookie will be used only when transmitting
+     * HTTP (or HTTPS) requests, thus restricting access from other, non-HTTP
+     * APIs (such as JavaScript). This restriction mitigates but does not
+     * eliminate the threat of session cookie theft via cross-site scripting
+     * (XSS).
+     */
+    final String sessionHttpOnly = "application.session.http_only";
+
 Session security
 ----------------
 
