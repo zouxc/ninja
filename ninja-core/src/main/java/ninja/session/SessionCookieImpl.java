@@ -115,8 +115,6 @@ public class SessionCookieImpl implements SessionCookie {
                 String payload = value.substring(value.indexOf("-") + 1);
 
                 // check if payload is valid:
-                // if (sign.equals(crypto.signHmacSha1(payload))) {
-
                 if (CookieDataCodec.safeEquals(sign,
                         crypto.signHmacSha1(payload))) {
                     CookieDataCodec.decode(data, payload);
@@ -183,7 +181,8 @@ public class SessionCookieImpl implements SessionCookie {
     @Override
     public void save(Context context, Result result) {
 
-        // Don't save the cookie nothing has changed, and if we're not expiring
+        // Don't save the cookie when nothing has changed, 
+    	// and if we're not expiring
         // or
         // we are expiring but we're only updating if the session changes
         if (!sessionDataHasBeenChanged
@@ -226,7 +225,7 @@ public class SessionCookieImpl implements SessionCookie {
                     + NinjaConstant.SESSION_SUFFIX, sign + "-" + sessionData);
             cookie.setPath("/");
 
-            if(applicationCookieDomain != null) {
+            if (applicationCookieDomain != null) {
                 cookie.setDomain(applicationCookieDomain);
             }
 

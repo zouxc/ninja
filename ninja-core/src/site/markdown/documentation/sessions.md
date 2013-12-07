@@ -1,8 +1,7 @@
 Sessions
 ========
 
-Intro
------
+# Intro
 
 A session is a package of information that always maps to one particular user of your application. 
 It is persistent over many connects. For instance - A user logs into your application today 
@@ -22,32 +21,76 @@ By the way - Ninja did not invent the concept of client side sessions - The prai
 
 More on sessions: (http://en.wikipedia.org/wiki/Session_(computer_science))
 
+# Dealing with sessions
 
-Configure your session
-----------------------
+A user sessions is valid for a certain amount of time. Once a user comes back Ninja automatically prolongs Ninja's session.
 
- You can configure your session via 
-    /**
-     * Prefix used for all Ninja cookies.
-     * 
-     * Make sure you set the prefix in your application.conf file.
-     * 
-     * */
-    final String applicationCookiePrefix = "application.cookie.prefix";
+Usually you modify your sessions in your controller methods. You can obtain a sessions via the Context object that
+has a method getSession(). But you can also directly inject the Session into your controller.
 
-    /**
-     * Enables session/cookie sharing between subdomains. For example, to make cookies valid for
-     * all domains ending with ‘.example.com’, e.g. foo.example.com and bar.example.com:
-     */
-    final String applicationCookieDomain = "application.cookie.domain";
+<pre class="prettyprint">
 
-    /** Used to verify client side cookie for instance. */
-    final String applicationSecret = "application.secret";
+	// Direct Session injection of the current session
+    public void controllerMethod(Session session) {
+       
+        session.put("username", "kevin");
 
-    /**
-     * Time until session expires.
-     */
-    final String sessionExpireTimeInSeconds = "application.session.expire_time_in_seconds";
+    }
+    
+    // Context also offers access to the current session of this request
+    public void controllerMethod(Context context) {
+       
+        context.getSessionCookie().put("username", "kevin");
+
+    }
+
+</pre>
+
+Session offers methods to put, delete and get data. Please refer to JavaDoc for more detailed
+information.
+
+Session data is also available as built-in variable in the html templating system.
+For instance ${session.username} allows you to access the username of the session inside your
+html template. 
+
+
+# Configure your session
+
+You can configure Ninja's session handling in your application.conf file.
+
+The following parameters are available.
+
+### application.cookie.prefix
+
+Allows you to set the prefix of the session cookie. By default this is NINJA_ (and your cookies
+will be called NINJA_SESSION).
+
+### application.cookie.domain
+
+Enables session/cookie sharing between subdomains. For example, to make cookies valid for
+all domains ending with ‘.example.com’, e.g. foo.example.com and bar.example.com.
+
+### application.secret
+
+This is the secret key used to sign the cookie. You really have to make sure that the key is kept secret.
+To generate a new one simply delete the key and start Ninja on the command line. This will generate
+a new random key.
+
+### application.session.expire_time_in_seconds
+
+This defines how long a session will be valid. 
+If a user comes back the session validity is automatically prolonged.
+
+If you want to invalidate a session you need to check that via a persistent storage on the server side.
+Usually you want to sue a database and/or memcache to check if a user login is valid or not under
+certain circumstances.
+
+
+### application.session.send_only_if_changed
+
+Send session cookie only back when content has changed.
+
+
 
     /**
      * Send session cookie only back when content has changed.
